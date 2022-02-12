@@ -8,7 +8,6 @@ const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const authRoute = require("./routes/auth");
 
-//"mongodb+srv://mayank:mayank@social.dompo.mongodb.net/social?retryWrites=true&w=majority",
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
@@ -27,6 +26,6 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/auth", authRoute);
 
-app.listen(3000, () => {
-  console.log("Backend Server Running!");
+app.listen(8800, () => {
+  console.log(`Backend Server Running at port`);
 });

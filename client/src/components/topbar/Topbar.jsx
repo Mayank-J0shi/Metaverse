@@ -1,16 +1,19 @@
 import React from "react";
 import "./Topbar.css";
 // import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import ChatIcon from '@mui/icons-material/Chat';
-import Person from '@mui/icons-material/Person';
+import SearchIcon from "@mui/icons-material/Search";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import ChatIcon from "@mui/icons-material/Chat";
+import Person from "@mui/icons-material/Person";
+import { Link } from "react-router-dom";
 
 export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">Metaverse</span>
+        <Link to="/" style={{ textDecoration: "none"}} > 
+          <span className="logo">Metaverse</span>
+        </Link>
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
