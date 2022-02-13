@@ -25,7 +25,7 @@ export const Users = [
   {
     id: 5,
     profilePicture: "person/5.jpeg",
-    username: "Tom Cruise",
+    username: "Tanish Sagar",
   },
   {
     id: 6,
@@ -35,22 +35,22 @@ export const Users = [
   {
     id: 7,
     profilePicture: "person/7.jpeg",
-    username: "Travis Bennett",
+    username: "Karan Kundra",
   },
   {
     id: 8,
     profilePicture: "person/8.jpeg",
-    username: "Kristen Thomas",
+    username: "John Abraham",
   },
   {
     id: 9,
     profilePicture: "person/9.jpeg",
-    username: "Gary Duty",
+    username: "Kamal Sharma",
   },
   {
     id: 10,
     profilePicture: "person/10.jpeg",
-    username: "Safak Kocaoglu",
+    username: "Shashank Sharma",
   },
 ];
 
