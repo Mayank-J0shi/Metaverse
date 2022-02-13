@@ -12,6 +12,7 @@ export default function Topbar() {
 
   const logoutHandler = (e) => {
     dispatch({ type: "LOGIN_START"});
+    navigate("/");
   };
   return (
     <div className="topbarContainer">
