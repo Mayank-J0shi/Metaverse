@@ -3,11 +3,17 @@ import "./login.css";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { CircularProgress } from "@material-ui/core";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
   const email = useRef();
   const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
+  const navigate=useNavigate();
+  
+  const registerClickHandler=()=>{
+    navigate('/register');
+  }
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -51,7 +57,7 @@ export default function Login() {
               )}
             </button>
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
+            <button className="loginRegisterButton" onClick={registerClickHandler}>
               {isFetching ? (
                 <CircularProgress color="white" size="20px" />
               ) : (

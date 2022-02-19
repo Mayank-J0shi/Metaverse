@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useRef } from "react";
 import "./register.css";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+
 
 export default function Register() {
   const username = useRef();
@@ -9,7 +10,11 @@ export default function Register() {
   const password = useRef();
   const passwordAgain = useRef();
   const history = useNavigate();
-
+  const navigate=useNavigate();
+  
+  const logClickHandler=()=>{
+    navigate('/login');
+  }
   const handleClick = async (e) => {
     e.preventDefault();
     if (passwordAgain.current.value !== password.current.value) {
@@ -28,6 +33,7 @@ export default function Register() {
       }
     }
   };
+
 
   return (
     <div className="login">
@@ -71,7 +77,7 @@ export default function Register() {
             <button className="loginButton" type="submit">
               Sign Up
             </button>
-            <button className="loginRegisterButton">Log into Account</button>
+            <button className="loginRegisterButton" onClick={logClickHandler}>Log into Account</button>
           </form>
         </div>
       </div>
