@@ -14,6 +14,10 @@ export default function Topbar() {
     dispatch({ type: "LOGIN_START"});
     navigate("/");
   };
+
+  const chatIconClickHandler=()=>{
+    navigate("messenger");
+  };
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -45,7 +49,7 @@ export default function Topbar() {
             <span className="topbarIconBadge">1</span>
           </div>
           <div className="topbarIconItem">
-            <Chat />
+            <Chat onClick={chatIconClickHandler}/>
             <span className="topbarIconBadge">2</span>
           </div>
           <div className="topbarIconItem">
