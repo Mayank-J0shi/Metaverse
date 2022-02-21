@@ -3,7 +3,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
-import Messenger from "./components/messenger/Messenger";
+import Messenger from  "./pages/messenger/Messenger";
 import { BrowserRouter as Router} from "react-router-dom";
 import { Routes ,Route,Navigate } from 'react-router-dom';
 import { useContext } from "react";

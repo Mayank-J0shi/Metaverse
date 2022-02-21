@@ -1,9 +1,9 @@
 import React from "react";
-import Conversation from "../conversations/Conversation";
-import Topbar from "../topbar/Topbar";
-import Message from "../message/Message";
+import Conversation from "../../components/conversations/Conversation";
+import Topbar from "../../components/topbar/Topbar";
+import Message from "../../components/message/Message";
 import "./messenger.css";
-import ChatOnline from "../chatOnline/ChatOnline";
+import ChatOnline from "../../components/chatOnline/ChatOnline";
 
 export default function Messenger() {
   return (
