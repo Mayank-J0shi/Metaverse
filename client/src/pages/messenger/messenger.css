@@ -68,7 +68,7 @@
 .noConversationText {
   position: absolute;
   top: 10%;
-  font-size: 50px;
+  font-size: 40px;
   color: rgb(224, 220, 220);
   cursor: default;
 }

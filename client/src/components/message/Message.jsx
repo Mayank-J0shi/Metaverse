@@ -1,18 +1,18 @@
-import React from "react";
 import "./message.css";
+import { format } from "timeago.js";
 
-export default function Message({own}) {
+export default function Message({ message, own }) {
   return (
-    <div className={own ? "message own": "message"}>
+    <div className={own ? "message own" : "message"}>
       <div className="messageTop">
         <img
-          src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-          alt=""
           className="messageImg"
+          src="https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+          alt=""
         />
-        <p className="messageText">Hello this is  a message</p>
+        <p className="messageText">{message.text}</p>
       </div>
-      <div className="messageBottom">1 hour ago</div>
+      <div className="messageBottom">{format(message.createdAt)}</div>
     </div>
   );
 }
