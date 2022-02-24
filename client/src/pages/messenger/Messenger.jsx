@@ -1,23 +1,22 @@
-import React, { useContext, useRef } from "react";
-import Conversation from "../../components/conversations/Conversation";
-import Topbar from "../../components/topbar/Topbar";
-import Message from "../../components/message/Message";
 import "./messenger.css";
+import Topbar from "../../components/topbar/Topbar";
+import Conversation from "../../components/conversations/Conversation";
+import Message from "../../components/message/Message";
 import ChatOnline from "../../components/chatOnline/ChatOnline";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { useState } from "react";
-import { useEffect } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
 
 export default function Messenger() {
-  const { user } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
-  const socket = useRef();
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const socket = useRef();
+  const { user } = useContext(AuthContext);
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -38,21 +37,19 @@ export default function Messenger() {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    //client to socket server
     socket.current.emit("addUser", user._id);
-
-    //socket server to client
     socket.current.on("getUsers", (users) => {
-      console.log(users);
+      setOnlineUsers(
+        user.followings.filter((f) => users.some((u) => u.userId === f))
+      );
     });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const getConversations = async () => {
       try {
         const res = await axios.get("/conversations/" + user._id);
         setConversations(res.data);
-        // console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -131,7 +128,7 @@ export default function Messenger() {
                 <div className="chatBoxBottom">
                   <textarea
                     className="chatMessageInput"
-                    placeholder="write something.."
+                    placeholder="write something..."
                     onChange={(e) => setNewMessage(e.target.value)}
                     value={newMessage}
                   ></textarea>
@@ -141,15 +138,19 @@ export default function Messenger() {
                 </div>
               </>
             ) : (
-              <span className="noConversationText">Start a Conversation</span>
+              <span className="noConversationText">
+                Open a conversation to start a chat.
+              </span>
             )}
           </div>
         </div>
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
+            <ChatOnline
+              onlineUsers={onlineUsers}
+              currentId={user._id}
+              setCurrentChat={setCurrentChat}
+            />
           </div>
         </div>
       </div>
