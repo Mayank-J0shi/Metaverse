@@ -8,27 +8,43 @@ import { AuthContext } from "../../context/AuthContext";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { io } from "socket.io-client";
 
 export default function Messenger() {
   const { user } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
+  const socket = useRef();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState([]);
-  const scrollRef =useRef();
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8900");
+  }, []);
+
+  useEffect(() => {
+    //client to socket server
+    socket.current.emit("addUser", user._id);
+
+    //socket server to client
+    socket.current.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, []);
 
   useEffect(() => {
     const getConversations = async () => {
       try {
         const res = await axios.get("/conversations/" + user._id);
         setConversations(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getConversations();
-  }, []);
+  }, [user._id]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -42,7 +58,7 @@ export default function Messenger() {
     getMessages();
   }, [currentChat]);
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
       sender: user._id,
@@ -56,7 +72,7 @@ export default function Messenger() {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -83,7 +99,7 @@ export default function Messenger() {
                 <div className="chatBoxTop">
                   {messages.map((m) => (
                     <div ref={scrollRef}>
-                    <Message message={m} own={m.sender === user._id} />
+                      <Message message={m} own={m.sender === user._id} />
                     </div>
                   ))}
                 </div>
@@ -91,10 +107,12 @@ export default function Messenger() {
                   <textarea
                     className="chatMessageInput"
                     placeholder="write something.."
-                    onChange={(e)=>setNewMessage(e.target.value)}
+                    onChange={(e) => setNewMessage(e.target.value)}
                     value={newMessage}
                   ></textarea>
-                  <button className="chatSubmitButton" onClick={handleSubmit} >Send</button>
+                  <button className="chatSubmitButton" onClick={handleSubmit}>
+                    Send
+                  </button>
                 </div>
               </>
             ) : (
